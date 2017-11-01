@@ -66,6 +66,14 @@ action :install do
       owner svc_user
     end
 
+    directory ::File.join(install_dir, 'current/config') do
+      owner svc_user
+      group svc_group
+      mode '0755'
+      recursive true
+      action :create
+    end
+
     node.default['kibana5']['config_file'] = ::File.join(install_dir, 'current/config/kibana.yml')
     node.default['kibana5']['exec_file'] = ::File.join(install_dir, 'current/bin/kibana')
   else
